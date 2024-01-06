@@ -20,7 +20,14 @@ export default function RegisterForm() {
       setError("All fields are necessary");
       return;
     }
-
+    const passwordRegex =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+    if (!passwordRegex.test(password)) {
+      setError(
+        "Password must be at least 8 characters long and contain a number and a special character."
+      );
+      return;
+    }
     try {
       const resUserExists = await fetch("api/userExists", {
         method: "POST",
